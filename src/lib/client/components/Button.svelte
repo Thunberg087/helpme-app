@@ -3,7 +3,7 @@
 </script>
 
 <div>
-  <h1>Page</h1>
+  <button>Test</button>
 </div>
 
 <style lang="scss">
