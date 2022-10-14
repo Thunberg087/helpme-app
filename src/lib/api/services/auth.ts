@@ -1,6 +1,6 @@
 import { createSession, deleteSession, getSession } from '$lib/api/services/session'
-import { getMongoConnection } from '$lib/db/mongo'
-import { UserModel } from '$lib/db/schemas/users'
+import { getMongoConnection } from '$lib/api/db/mongo'
+import { UserModel } from '$lib/api/db/schemas/users'
 import type { IUser } from '$lib/shared/types/user'
 import bcrypt from 'bcryptjs'
 import cookie from 'cookie'

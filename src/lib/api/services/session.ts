@@ -1,4 +1,4 @@
-import { SessionModel } from '$lib/db/schemas/session'
+import { SessionModel } from '$lib/api/db/schemas/session'
 import { v4 as uuidv4 } from 'uuid'
 
 export const createSession = async (userId: string) => {

@@ -1,6 +1,6 @@
 import { createResponse } from '$lib/api/response'
 import { login } from '$lib/api/services/auth'
-import type { ISession } from '$lib/db/schemas/session'
+import type { ISession } from '$lib/api/db/schemas/session'
 import type { MessageResponse } from '$lib/shared/responses'
 import type { ILoginInput } from '$lib/shared/types/user'
 import type { RequestEvent } from '@sveltejs/kit'

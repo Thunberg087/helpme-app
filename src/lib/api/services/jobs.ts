@@ -1,4 +1,4 @@
-import { JobModel } from '$lib/db/schemas/jobs'
+import { JobModel } from '$lib/api/db/schemas/jobs'
 import type { ICreateJobInput, IJobPopulated } from '$lib/shared/types/jobs'
 import type { IUser } from '$lib/shared/types/user'
 
