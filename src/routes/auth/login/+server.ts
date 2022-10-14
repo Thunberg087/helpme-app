@@ -2,12 +2,12 @@ import { createResponse } from '$lib/api/response'
 import { login } from '$lib/api/services/auth'
 import type { ISession } from '$lib/db/schemas/session'
 import type { MessageResponse } from '$lib/shared/responses'
-import type { ISignupInput } from '$lib/shared/types/user'
+import type { ILoginInput } from '$lib/shared/types/user'
 import type { RequestEvent } from '@sveltejs/kit'
 import { serialize } from 'cookie'
 
 export async function POST({ request }: RequestEvent) {
-  const userInput: ISignupInput = await request.json()
+  const userInput: ILoginInput = await request.json()
 
   try {
     const session: ISession = await login(userInput.email, userInput.password)
@@ -24,6 +24,7 @@ export async function POST({ request }: RequestEvent) {
       'Set-Cookie': newCookie,
     })
   } catch (error: any) {
+    console.log('error', error)
     return createResponse<MessageResponse>({ message: error.message }, 401)
   }
 }

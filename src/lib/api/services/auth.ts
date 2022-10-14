@@ -37,7 +37,8 @@ export const signup = async (email: string, fullname: string, password: string) 
 }
 
 export const login = async (email: string, password: string) => {
-  let user = await UserModel.findOne({ email })
+  let user = await UserModel.findOne({ email }).select('+passHash').exec()
+
   if (!user) throw new Error('User not found')
 
   if (!user.passHash) throw new Error('Incorrect password')

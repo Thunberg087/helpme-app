@@ -1,11 +1,14 @@
 <script lang="ts">
   import type { IJobPopulated } from '$lib/shared/types/jobs'
-  import { formatDate, formatDateWithMonthNameAndTime } from '$lib/shared/util/dateFormatter'
 
   export let job: IJobPopulated
 
   const getFirstName = (name: string) => {
     return name.split(' ')[0]
+  }
+
+  const capitalize = (str: string) => {
+    return str.charAt(0).toUpperCase() + str.slice(1)
   }
 </script>
 
@@ -17,8 +20,7 @@
   </div>
   <div class="botWrapper">
     <div class="jobInfoBox">
-      <p>{formatDateWithMonthNameAndTime(job.createdAt)}</p>
-      <p>Upplagd av {getFirstName(job.creator.fullname)}</p>
+      <p>Upplagd av {capitalize(getFirstName(job.creator.fullname))}</p>
     </div>
     <button class="takeJobButton">Ta jobb</button>
   </div>
@@ -32,7 +34,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    
+
     p {
       font-size: 0.9rem;
       line-height: 1.3rem;
@@ -66,7 +68,7 @@
       justify-content: flex-end;
 
       p {
-        font-size: 0.6rem;
+        font-size: 0.7rem;
         margin: 0;
       }
     }
