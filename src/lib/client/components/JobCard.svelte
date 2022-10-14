@@ -1,5 +1,7 @@
 <script lang="ts">
+  import apiConnector from '$lib/client/apiConnector'
   import type { IJobPopulated } from '$lib/shared/types/jobs'
+  import { formatDateWithDayname } from '$lib/shared/util/dateFormatter'
 
   export let job: IJobPopulated
 
@@ -9,6 +11,12 @@
 
   const capitalize = (str: string) => {
     return str.charAt(0).toUpperCase() + str.slice(1)
+  }
+
+  const takeJob = () => {
+    apiConnector.getRoutes().jobs.takeJob.post({
+      jobId: job._id,
+    })
   }
 </script>
 
@@ -20,9 +28,10 @@
   </div>
   <div class="botWrapper">
     <div class="jobInfoBox">
+      <p>{formatDateWithDayname(job.createdAt)}</p>
       <p>Upplagd av {capitalize(getFirstName(job.creator.fullname))}</p>
     </div>
-    <button class="takeJobButton">Ta jobb</button>
+    <button class="takeJobButton" on:click={takeJob}>Ta jobb</button>
   </div>
 </div>
 

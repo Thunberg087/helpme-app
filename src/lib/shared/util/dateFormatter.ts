@@ -33,7 +33,7 @@ export function formatDateWithDayname(date: Date) {
   date = new Date(date)
   const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
   const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-  return `${days[date.getDay()]}, ${('0' + date.getDate()).slice(-2)} ${monthNames[date.getMonth()]} `
+  return `${days[date.getDay()]}, ${('0' + date.getDate()).slice(-2)} ${monthNames[date.getMonth()]} ${padZero(date.getHours())}:${padZero(date.getMinutes())}`
 }
 
 /**

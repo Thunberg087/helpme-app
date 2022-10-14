@@ -7,7 +7,6 @@ export interface ISession {
 
 const sessionSchema = new Schema<ISession>(
   {
-    id: { type: String, required: true },
     userId: { type: String, required: true },
   },
   {

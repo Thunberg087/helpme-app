@@ -33,6 +33,9 @@
       </div>
     </div>
     <div class="right">
+      <div class="navItem" class:active={$page.routeId == 'my-jobs'}>
+        <a href="/my-jobs">Mina jobb</a>
+      </div>
       <div class="navItem" class:active={$page.routeId == 'profile'}>
         <a href="/profile">Min profil</a>
       </div>

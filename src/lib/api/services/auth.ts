@@ -46,8 +46,6 @@ export const login = async (email: string, password: string) => {
   const isMatch = await bcrypt.compare(password, user.passHash)
   if (!isMatch) throw new Error('Incorrect password')
 
-  user.passHash = undefined
-
   const session = createSession(user._id)
 
   return session
