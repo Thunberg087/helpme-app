@@ -1,4 +1,6 @@
 import type { ErrorResponse, MessageResponse } from '$lib/shared/responses'
+import type { GetJobsResponse } from '$lib/shared/responses/jobs'
+import type { ICreateJobInput } from '$lib/shared/types/jobs'
 import type { ILoginInput, ISignupInput } from '$lib/shared/types/user'
 import axios, { type AxiosError } from 'axios'
 
@@ -71,6 +73,21 @@ const getRoutes = () => ({
       return sendRequest({
         method: 'DELETE',
         path: '/auth/logout',
+      })
+    },
+  },
+  jobs: {
+    get: () => {
+      return sendRequest<GetJobsResponse>({
+        method: 'GET',
+        path: '/api/jobs',
+      })
+    },
+    post: (input: ICreateJobInput) => {
+      return sendRequest({
+        method: 'POST',
+        path: '/api/jobs',
+        body: input,
       })
     },
   },

@@ -1,4 +1,4 @@
-import { logout } from '$lib/api/services/user'
+import { logout } from '$lib/api/services/auth'
 import type { RequestEvent } from '@sveltejs/kit'
 import cookie from 'cookie'
 

@@ -5,9 +5,14 @@ export interface ISession {
   userId: string
 }
 
-const sessionSchema = new Schema<ISession>({
-  id: { type: String, required: true },
-  userId: { type: String, required: true },
-})
+const sessionSchema = new Schema<ISession>(
+  {
+    id: { type: String, required: true },
+    userId: { type: String, required: true },
+  },
+  {
+    timestamps: true,
+  }
+)
 
 export const SessionModel = model<ISession>('Session', sessionSchema)

@@ -1,5 +1,5 @@
 import { createResponse } from '$lib/api/response'
-import { login } from '$lib/api/services/user'
+import { login } from '$lib/api/services/auth'
 import type { ISession } from '$lib/db/schemas/session'
 import type { MessageResponse } from '$lib/shared/responses'
 import type { ISignupInput } from '$lib/shared/types/user'

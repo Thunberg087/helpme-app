@@ -3,11 +3,24 @@ import { getMongoConnection } from '$lib/db/mongo'
 import { UserModel } from '$lib/db/schemas/users'
 import type { IUser } from '$lib/shared/types/user'
 import bcrypt from 'bcryptjs'
+import cookie from 'cookie'
+
 getMongoConnection()
 
-export const getUserBySessionId = async (sessionId: string) => {
+export const getUserByRequest = async (request: Request): Promise<undefined | IUser> => {
+  const cookies = request.headers.get('cookie')
+  if (!cookies) return undefined
+
+  const sessionId = cookie.parse(cookies).session_id
+  if (!sessionId) return undefined
+
   const session = await getSession(sessionId)
   const user = await UserModel.findById(session?.userId)
+
+  if (!user) return undefined
+
+  user.passHash = undefined
+
   return user
 }
 

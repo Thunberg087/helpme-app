@@ -1,5 +1,5 @@
 import { createResponse } from '$lib/api/response'
-import { signup } from '$lib/api/services/user'
+import { signup } from '$lib/api/services/auth'
 import type { MessageResponse } from '$lib/shared/responses'
 import type { ISignupInput } from '$lib/shared/types/user'
 import type { RequestEvent } from '@sveltejs/kit'
