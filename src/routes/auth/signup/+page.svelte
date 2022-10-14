@@ -1,12 +1,20 @@
 <script lang="ts">
   import api from '$lib/client/apiConnector'
 
-  let email: string = 'thunberg00@gmail.com'
-  let fullname: string = 'Jonathan Thunberg'
-  let password: string = 'Test123'
+  let email: string = ''
+  let fullname: string = ''
+  let password: string = ''
 
-  const signup = () => {
-    api.getRoutes().auth.signup({ email, fullname, password })
+  let errorMessage: string = ''
+
+  const signup = async () => {
+    const { error } = await api.getRoutes().auth.signup({ email, fullname, password })
+
+    if (error) {
+      errorMessage = error.message
+    } else {
+      location.replace('/auth/login')
+    }
   }
 </script>
 
@@ -16,6 +24,9 @@
   <input type="text" bind:value={fullname} placeholder="Fullname" />
   <input type="password" bind:value={password} placeholder="Password" />
   <button on:click={signup}>Signup</button>
+  {#if errorMessage}
+    <p>{errorMessage}</p>
+  {/if}
 </div>
 
 <style lang="scss">

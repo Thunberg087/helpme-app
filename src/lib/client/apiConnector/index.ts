@@ -1,3 +1,4 @@
+import type { ErrorResponse, MessageResponse } from '$lib/shared/responses'
 import type { ILoginInput, ISignupInput } from '$lib/shared/types/user'
 import axios, { type AxiosError } from 'axios'
 
@@ -9,17 +10,10 @@ interface ISendRequest {
   body?: any
 }
 
-interface IError {
-  data: {
-    message?: string
-  }
-  status: number
-  statusText: string
-}
-
 export interface IResponse<DataType> {
   data?: DataType
-  error?: IError
+  error?: ErrorResponse
+  status: number
 }
 
 const apiUrl = import.meta.env.VITE_API_URL
@@ -29,8 +23,8 @@ const axiosInstance = axios.create({
   timeout: 10000,
 })
 
-export async function sendRequest<DataType extends unknown>(request: ISendRequest) {
-  let response: IResponse<DataType> = { data: undefined, error: undefined }
+export async function sendRequest<DataType>(request: ISendRequest) {
+  let response: IResponse<DataType> = { data: undefined, error: undefined, status: 0 }
 
   try {
     const res = await axiosInstance.request({
@@ -39,14 +33,18 @@ export async function sendRequest<DataType extends unknown>(request: ISendReques
       data: request.body,
     })
 
-    response.data = res.data
+    response = {
+      status: res.status,
+      data: res.data,
+    }
   } catch (error: any) {
     const err = error as AxiosError
 
-    const errorData: IError = err.response as IError
+    const errorData = err.response as { data: ErrorResponse; status: number }
 
-    if (errorData) {
-      response.error = errorData
+    response = {
+      status: errorData.status,
+      error: errorData.data,
     }
   } finally {
     return response
@@ -56,14 +54,14 @@ export async function sendRequest<DataType extends unknown>(request: ISendReques
 const getRoutes = () => ({
   auth: {
     signup: (input: ISignupInput) => {
-      return sendRequest({
+      return sendRequest<MessageResponse>({
         method: 'POST',
         path: '/auth/signup',
         body: input,
       })
     },
     login: (input: ILoginInput) => {
-      return sendRequest({
+      return sendRequest<MessageResponse>({
         method: 'POST',
         path: '/auth/login',
         body: input,

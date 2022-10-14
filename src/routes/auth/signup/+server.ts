@@ -1,4 +1,6 @@
+import { createResponse } from '$lib/api/response'
 import { signup } from '$lib/api/services/user'
+import type { MessageResponse } from '$lib/shared/responses'
 import type { ISignupInput } from '$lib/shared/types/user'
 import type { RequestEvent } from '@sveltejs/kit'
 
@@ -7,12 +9,13 @@ export async function POST({ request }: RequestEvent) {
 
   try {
     await signup(user.email, user.fullname, user.password)
-    return new Response(JSON.stringify({ msg: 'Account created' }), { status: 201 })
+
+    return createResponse<MessageResponse>({ message: 'Account created' }, 201)
   } catch (error: any) {
-    if (error.code === '11000') {
-      return new Response(JSON.stringify({ msg: 'Email already in use' }), { status: 409 })
+    if (error.code === 11000) {
+      return createResponse<MessageResponse>({ message: 'Email already in use' }, 409)
     }
 
-    return new Response(JSON.stringify({ msg: 'Something went wrong' }), { status: 500 })
+    return createResponse<MessageResponse>({ message: 'Something went wrong' }, 500)
   }
 }

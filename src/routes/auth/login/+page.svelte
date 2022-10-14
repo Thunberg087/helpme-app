@@ -1,21 +1,18 @@
 <script lang="ts">
-  import { page } from '$app/stores'
   import api from '$lib/client/apiConnector'
 
-
-  let email: string = 'thunberg00@gmail.com'
-  let password: string = 'Test123'
+  let email: string = ''
+  let password: string = ''
 
   let errorMessage: string = ''
 
   const login = async () => {
-    const { data, error } = await api.getRoutes().auth.login({ email, password })
+    const { error } = await api.getRoutes().auth.login({ email, password })
 
     if (!error) {
       location.replace('/home')
     } else {
-      console.log(error)
-      errorMessage = error.data.message || 'Something went wrong'
+      errorMessage = error.message
     }
   }
 </script>
