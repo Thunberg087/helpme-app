@@ -1,20 +1,17 @@
-import { Job, type IJob } from '$lib/db/schemas/job'
-import type { MaybePromise } from '@sveltejs/kit/types/private'
-import type { RequestEvent, RequestHandler } from '@sveltejs/kit'
+import { JobModel, type IJob } from '$lib/db/schemas/job'
+import type { RequestEvent } from '@sveltejs/kit'
 
-/** @type {import('./$types').RequestHandler} */
-export function GET() {
+export function GET(event: RequestEvent) {
   const jobs: IJob[] = []
 
   return jobs
 }
 
-/** @type {import('./$types').RequestHandler} */
 export async function POST({ request }: RequestEvent) {
   const data = await request.json()
 
   try {
-    const job = new Job({
+    const job = new JobModel({
       name: data.name,
       description: data.description,
     })

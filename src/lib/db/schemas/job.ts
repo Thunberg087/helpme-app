@@ -10,4 +10,4 @@ const jobSchema = new Schema<IJob>({
   description: { type: String, required: true },
 })
 
-export const Job = model<IJob>('Job', jobSchema)
+export const JobModel = model<IJob>('Job', jobSchema)
