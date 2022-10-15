@@ -19,8 +19,6 @@ export const getUserByRequest = async (request: Request): Promise<undefined | IU
 
   if (!user) return undefined
 
-  user.passHash = undefined
-
   return user
 }
 

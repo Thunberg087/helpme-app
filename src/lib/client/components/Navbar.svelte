@@ -1,22 +1,9 @@
 <script lang="ts">
-  import apiConnector from '$lib/client/apiConnector'
   import { page } from '$app/stores'
-  import { get } from 'svelte/store'
-
-  const user = JSON.parse(get(page).data.user || '{}')
-
-  const logout = async () => {
-    try {
-      await apiConnector.getRoutes().auth.logout()
-      location.replace('/home')
-    } catch (error) {
-      console.log(error)
-    }
-  }
 </script>
 
 <div>
-  <br /><br />
+  <br /><br /><br /><br />
 </div>
 
 <header>
@@ -29,7 +16,7 @@
         <a href="/home">Hem</a>
       </div>
       <div class="navItem" class:active={$page.routeId == 'post-job'}>
-        <a href="/post-job">Lägg ut jobb</a>
+        <a href="/post-job">Lägg upp ett jobb</a>
       </div>
     </div>
     <div class="right">
@@ -40,13 +27,6 @@
         <a href="/profile">Min profil</a>
       </div>
     </div>
-
-    <!-- <button on:click={logout}>Logout</button> -->
-    <!-- {#if user}
-      <p>
-        {user.fullname}
-      </p>
-      {/if} -->
   </div>
 </header>
 

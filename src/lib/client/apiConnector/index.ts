@@ -76,6 +76,20 @@ const getRoutes = () => ({
       })
     },
   },
+  user: {
+    getMyJobs: () => {
+      return sendRequest<GetJobsResponse>({
+        method: 'GET',
+        path: '/api/user/my-jobs',
+      })
+    },
+    getMySearchedJobs: () => {
+      return sendRequest<GetJobsResponse>({
+        method: 'GET',
+        path: '/api/user/my-searched-jobs',
+      })
+    },
+  },
   jobs: {
     get: () => {
       return sendRequest<GetJobsResponse>({
@@ -89,6 +103,15 @@ const getRoutes = () => ({
         path: '/api/jobs',
         body: input,
       })
+    },
+    removeSearchedJob: {
+      delete: (jobId: string) => {
+        return sendRequest({
+          method: 'POST',
+          path: `/api/jobs/remove-searched-job/`,
+          body: { jobId },
+        })
+      },
     },
     takeJob: {
       post: (input: ITakeJobInput) => {

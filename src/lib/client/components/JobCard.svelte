@@ -4,6 +4,7 @@
   import { formatDateWithDayname } from '$lib/shared/util/dateFormatter'
 
   export let job: IJobPopulated
+  export let isSearched: boolean
 
   const getFirstName = (name: string) => {
     return name.split(' ')[0]
@@ -18,6 +19,10 @@
       jobId: job._id,
     })
   }
+
+  const removeSearchedJob = () => {
+    apiConnector.getRoutes().jobs.removeSearchedJob.delete(job._id)
+  }
 </script>
 
 <div class="jobCard">
@@ -31,7 +36,11 @@
       <p>{formatDateWithDayname(job.createdAt)}</p>
       <p>Upplagd av {capitalize(getFirstName(job.creator.fullname))}</p>
     </div>
-    <button class="takeJobButton" on:click={takeJob}>Ta jobb</button>
+    {#if !isSearched}
+      <button class="takeJobButton" on:click={takeJob}>Ta jobb</button>
+    {:else}
+      <button class="takeJobButton searched" on:click={removeSearchedJob}>Jobb sökt</button>
+    {/if}
   </div>
 </div>
 
@@ -68,6 +77,14 @@
 
       &:hover {
         background-image: linear-gradient(to right, #16a61c, #1cb822);
+      }
+
+      &.searched {
+        background-image: linear-gradient(to right, #166ca6, #1c87b8);
+
+        &:hover {
+          background-image: linear-gradient(to right, #1d7dbd, #2797ca);
+        }
       }
     }
 

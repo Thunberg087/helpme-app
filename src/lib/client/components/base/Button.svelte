@@ -1,13 +1,14 @@
 <script lang="ts">
+  export let onClick: () => void
 </script>
 
-<button>
+<button on:click={onClick}>
   <slot />
 </button>
 
 <style lang="scss">
   button {
-    padding: 10px;
+    padding: 10px 20px;
     border-radius: 5px;
     border: none;
     background-color: #111;

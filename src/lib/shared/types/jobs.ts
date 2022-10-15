@@ -8,7 +8,6 @@ export interface IJob {
   createdAt: Date
   updatedAt: Date
   creator: Schema.Types.ObjectId
-  jobTakers: Schema.Types.ObjectId[]
 }
 
 export interface IJobPopulated {
@@ -18,7 +17,6 @@ export interface IJobPopulated {
   createdAt: Date
   updatedAt: Date
   creator: IUser
-  jobTakers: IUser[]
 }
 
 export interface ICreateJobInput {
@@ -29,5 +27,10 @@ export interface ICreateJobInput {
 
 export interface ITakeJobInput {
   jobTakerUserId?: string
+  jobId: string
+}
+
+export interface IRemoveSearchedJobInput {
+  userId: string
   jobId: string
 }

@@ -11,11 +11,22 @@
 
     if (data) {
       jobs = data.jobs
-      
     }
   }
 
   getJobs()
+
+  let mySearchedJobs: IJobPopulated[] = []
+
+  const getMySearchedJobs = async () => {
+    const { data } = await api.getRoutes().user.getMySearchedJobs()
+
+    if (data) {
+      mySearchedJobs = data.jobs
+    }
+  }
+
+  getMySearchedJobs()
 </script>
 
 <svelte:head>
@@ -29,16 +40,12 @@
   <h1>Jobb</h1>
   <div class="jobGrid">
     {#each jobs as job}
-      <JobCard {job} />
+      <JobCard {job} isSearched={Boolean(mySearchedJobs.find((j) => j._id === job._id))} />
     {/each}
   </div>
 </div>
 
 <style lang="scss">
-  .container {
-    margin: 20px auto;
-  }
-
   .jobGrid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));

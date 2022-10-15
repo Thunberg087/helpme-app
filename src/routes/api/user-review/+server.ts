@@ -5,11 +5,11 @@ import { createReview } from '$lib/api/services/userReview'
 import type { GetJobsResponse } from '$lib/shared/responses/jobs'
 import type { RequestEvent } from '@sveltejs/kit'
 
-export async function GET() {
-  const jobs = await getJobs()
+// export async function GET() {
+//   const jobs = await getJobs()
 
-  return createResponse<GetJobsResponse>({ jobs }, 200)
-}
+//   return createResponse<GetJobsResponse>({ jobs }, 200)
+// }
 
 export async function POST({ request }: RequestEvent) {
   const data = await request.json()

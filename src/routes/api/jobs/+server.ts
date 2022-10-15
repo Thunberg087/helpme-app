@@ -4,8 +4,10 @@ import { createJob, getJobs } from '$lib/api/services/jobs'
 import type { GetJobsResponse } from '$lib/shared/responses/jobs'
 import type { RequestEvent } from '@sveltejs/kit'
 
-export async function GET() {
-  const jobs = await getJobs()
+export async function GET({ request }: RequestEvent) {
+  const user = await getUserByRequest(request)
+
+  const jobs = await getJobs(user?._id)
 
   return createResponse<GetJobsResponse>({ jobs }, 200)
 }
